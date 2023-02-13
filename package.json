@@ -5,11 +5,11 @@
   "homepage": "https://github.com/rocknro1l/goit-js-hw-10.git",
   "scripts": {
     "start": "parcel src/*.html",
-    "build": "https://github.com/rocknro1l/goit-js-hw-10.git"
+    "build": "parcel build src/*.html --public-url /goit-js-hw-10/"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/goitacademy/parcel-project-template.git"
+    "url": "git+https://github.com/rocknro1l/goit-js-hw-10.git"
   },
   "keywords": [],
   "author": "Alexander Repeta <alexander.repeta@gmail.com>",
