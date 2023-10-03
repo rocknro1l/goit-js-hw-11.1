@@ -1,0 +1,70 @@
+@import './common';
+@import './example';
+
+.header {
+  background-color: #6466ff;
+  display: flex;
+}
+
+.search-form {
+  padding: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+input {
+  width: 350px;
+  height: 40px;
+  border-radius: 7px;
+  border-color: #64ceff;
+  padding-left: 7px;
+}
+
+.container {
+  padding: 20px;
+  width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  border: #64ceff, 2px, solid;
+}
+
+img {
+  display: block;
+  width: 380px;
+  height: 280px;
+}
+
+.info {
+  width: 95%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+// .info-item {
+//   width: 20%;
+//   text-align: center;
+// }
+
+.photo-card {
+  border: #6466ff 1px solid;
+  width: 381px;
+}
+
+.loadMoreBtn {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 60px;
+}
+
+.hidden {
+  display: none;
+}
