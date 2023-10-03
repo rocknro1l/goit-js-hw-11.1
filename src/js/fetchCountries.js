@@ -16,3 +16,5 @@ const fetchCountries = name => {
     });
 };
 export { fetchCountries };
+
+console.log('5');
