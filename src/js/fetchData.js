@@ -10,6 +10,8 @@ async function fetchData(query, currentPage) {
     const { data } = await axios.get(url);
 
     return data;
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 }
 export { fetchData };
