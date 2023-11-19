@@ -21,7 +21,9 @@ function onScroll(entries, observer) {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       currentPage += 1;
-      fetchData(query, currentPage).then(checkForMoreData);
+      fetchData(query, currentPage)
+        .then(checkForMoreData)
+        .catch(err => console.log(err));
     }
   });
 }
@@ -36,7 +38,9 @@ form.addEventListener('submit', event => {
   if (inputFormValue === '') {
     return;
   }
-  fetchData(query).then(checkSearchData);
+  fetchData(query)
+    .then(checkSearchData)
+    .catch(err => console.log(err));
 });
 
 let galleryLightbox = new SimpleLightbox('.photo-card a', {
