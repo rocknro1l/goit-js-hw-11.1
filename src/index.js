@@ -20,6 +20,7 @@ let observer = new IntersectionObserver(onScroll, options);
 function onScroll(entries, observer) {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
+      console.log(entry.isIntersecting);
       currentPage += 1;
       fetchData(query, currentPage)
         .then(checkForMoreData)
@@ -32,13 +33,14 @@ form.addEventListener('submit', event => {
   query = event.target.elements.searchQuery.value;
   event.preventDefault();
   removeItems();
-
+  currentPage = 1;
+  observer.unobserve(target);
   let inputFormValue = query.toLowerCase().trim();
 
   if (inputFormValue === '') {
     return;
   }
-  fetchData(query)
+  fetchData(query, currentPage)
     .then(checkSearchData)
     .catch(err => console.log(err));
 });
