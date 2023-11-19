@@ -36,7 +36,7 @@ form.addEventListener('submit', async event => {
   if (inputFormValue === '') {
     return;
   }
-  fetchData(query).then(checkSearchData);
+  await fetchData(query).then(checkSearchData);
 });
 
 let galleryLightbox = new SimpleLightbox('.photo-card a', {
@@ -110,7 +110,7 @@ function checkForMoreData(search) {
   if (search.hits.length === 40) {
     return;
   }
-  if (search.hits.length < 40) {
+  if (search.hits.length < 40 && search.hits.length !== 0) {
     Notify.info("We're sorry, but you've reached the end of search results.");
     observer.unobserve(target);
   }
