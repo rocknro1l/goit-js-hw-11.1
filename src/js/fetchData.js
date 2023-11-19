@@ -1,9 +1,10 @@
 import axios from 'axios';
 
-const myApiKey = '39808919-1d9799ea84529475b5b50a509';
+const API_KEY = '40692232-4084d53797a695134229ef5d4';
+const BASE_URL = 'https://pixabay.com/api/';
 
-async function fetchData(query, perPage, page) {
-  const url = `https://pixabay.com/api/?key=${myApiKey}&q=${query}&image_type=photo&pretty=true&per_page=${perPage}&page=${page}&orientation=horizontal&safesearch=true`;
+async function fetchData(query, currentPage) {
+  const url = `${BASE_URL}?key=${API_KEY}&q=${query}&image_type=photo&pretty=true&per_page=40&page=${currentPage}&orientation=horizontal&safesearch=true`;
   try {
     const { data } = await axios.get(url);
 

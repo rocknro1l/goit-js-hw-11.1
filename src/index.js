@@ -1,4 +1,3 @@
-import axios from 'axios';
 import Notiflix, { Notify } from 'notiflix';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
@@ -7,13 +6,25 @@ import { fetchData } from './js/fetchData';
 
 const gallery = document.querySelector('.gallery');
 const form = document.querySelector('.search-form');
-const loadMoreBtn = document.querySelector('.loadMoreBtn');
-loadMoreBtn.addEventListener('click', moreBtn);
+const target = document.querySelector('.js-guard');
 
-let perPage = 40;
-let page = 1;
-let maxPage = 0;
-let query = '';
+let currentPage = 1;
+let options = {
+  root: null,
+  rootMargin: '300px',
+  threshold: 1.0,
+};
+
+let observer = new IntersectionObserver(onScroll, options);
+
+function onScroll(entries, observer) {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      currentPage += 1;
+      fetchData(query, currentPage).then(checkForMoreData);
+    }
+  });
+}
 
 form.addEventListener('submit', async event => {
   query = event.target.elements.searchQuery.value;
@@ -25,9 +36,7 @@ form.addEventListener('submit', async event => {
   if (inputFormValue === '') {
     return;
   }
-  fetchData(query, perPage, page).then(checkSearchData);
-
-  markupContent;
+  fetchData(query).then(checkSearchData);
 });
 
 let galleryLightbox = new SimpleLightbox('.photo-card a', {
@@ -75,42 +84,34 @@ function markupContent(data) {
 }
 
 function removeItems() {
-  page = 1;
   gallery.innerHTML = '';
-  loadMoreBtn.classList.add('hidden');
 }
 
 function checkSearchData(search) {
-  // console.log(search.total);
-
   const total = search.total;
-
   if (total > 0) {
-    loadMoreBtn.classList.remove('hidden');
-
     Notiflix.Notify.success(`We have the ${total} pictures fo you!`);
     markupContent(search);
     galleryLightbox.refresh();
+    observer.observe(target);
   }
 
   if (total === 0) {
-    loadMoreBtn.classList.add('hidden');
     Notiflix.Notify.failure(
       'Sorry, there are no images matching your search query. Please try again.'
     );
     removeItems();
   }
-
-  if (total > perPage) {
-    loadMoreBtn.classList.remove('hidden');
-  }
-  if (maxPage <= page) {
-    loadMoreBtn.classList.add('hidden');
-  }
 }
 
-function moreBtn() {
-  page += 1;
-
-  fetchData(query, perPage, page).then(checkSearchData);
+function checkForMoreData(search) {
+  markupContent(search);
+  galleryLightbox.refresh();
+  if (search.hits.length === 40) {
+    return;
+  }
+  if (search.hits.length < 40) {
+    Notify.info("We're sorry, but you've reached the end of search results.");
+    observer.unobserve(target);
+  }
 }
