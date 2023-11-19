@@ -26,7 +26,7 @@ function onScroll(entries, observer) {
   });
 }
 
-form.addEventListener('submit', async event => {
+form.addEventListener('submit', event => {
   query = event.target.elements.searchQuery.value;
   event.preventDefault();
   removeItems();
@@ -36,7 +36,7 @@ form.addEventListener('submit', async event => {
   if (inputFormValue === '') {
     return;
   }
-  await fetchData(query).then(checkSearchData);
+  fetchData(query).then(checkSearchData);
 });
 
 let galleryLightbox = new SimpleLightbox('.photo-card a', {
